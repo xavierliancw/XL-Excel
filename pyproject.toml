@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xl-excel"
+version = "0.2.0"
+description = "Xavier's Python package containing tools he uses to speed up his Excel workflows."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE.md" }
+authors = [
+    { name = "Xavier Lian", email = "xavier.lian@wdc.com" },
+]
+maintainers = [
+    { name = "Xavier Lian", email = "xavier.lian@wdc.com" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["openpyxl", "pandas"]
+
+[project.optional-dependencies]
+dev = ["black", "build", "isort", "pylint"]
+
+[tool.black]
+preview = true
+
+[tool.isort]
+profile = "black"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"xl_excel" = ["py.typed"]
