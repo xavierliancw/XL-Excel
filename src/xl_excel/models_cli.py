@@ -1,5 +1,6 @@
 """Module for controlling flow through this package when executing as a CLI 
-application."""
+application. The names and layout of these classes are convenient to use with 
+`argparse.ArgumentParser` to make my life easier."""
 
 from dataclasses import dataclass
 from enum import StrEnum, auto
@@ -14,27 +15,28 @@ class CLIVerb(StrEnum):
 
 
 @dataclass(slots=True, frozen=True)
-class ExcelSheetSelection:
-    """Models an Excel worksheet selection."""
+class ExcelWkbkSelection:
+    """Models an Excel workbook selection."""
 
     path: Path  # Path to the workbook
+
+
+@dataclass(slots=True, frozen=True)
+class ExcelSheetIndexSelection:
+    """Models an Excel worksheet selection."""
+
     sheet_index: int  # Worksheet selection by index where 0 is the leftmost tab
 
 
 @dataclass(slots=True, frozen=True)
-class ExcelColumnLetterSelection(ExcelSheetSelection):
-    """Models an Excel column selection."""
+class ExcelSheetSelection:
+    """Models an Excel worksheet selection."""
 
-    col: str  # Example "A" or "ABC"
+    sheet: str  # Name of worksheet to select
 
 
 @dataclass(slots=True, frozen=True)
-class ExcelCellSelection:
-    """Models a selection of cells within an Excel workbook."""
+class ExcelColumnLetterSelection:
+    """Models an Excel column selection."""
 
-    fpath: Path  # Path to the workbook
-    sheet: str | None  # Worksheet selection by its name
-    sheet_index: int | None  # Worksheet selection where the left-most tab is sheet 0
-    column: str | None  # Column A, B, ..., AA, AB etc.
-    row: int | None  # Excel rows start at 1, not 0
-    cells: set[str] | None  # Set of cells to select (e.g. {"A2", "BB8"})
+    col: str  # Example "A" or "ABC"

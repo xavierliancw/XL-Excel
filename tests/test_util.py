@@ -32,36 +32,3 @@ class TestUtil(TestCase):
         for test_case, expected in test_case_to_expected_map.items():
             uut = _mut.column_letter_for(pyindex=test_case)
             self.assertEqual(uut, expected)
-
-    def test_argstring_quote_splitting_behavior(self):
-        testme_to_expected = [
-            ("", "".split(" ")),
-            (" ", " ".split(" ")),
-            ("first", "first".split(" ")),
-            ("first second", "first second".split(" ")),
-            ("first second third", "first second third".split(" ")),
-            (" hello ", " hello ".split(" ")),
-            (" hello ", " hello ".split(" ")),
-            ('"first arg"', ["first arg"]),
-            ('"first arg" second_arg', ["first arg", "second_arg"]),
-            (
-                '"this path has spaces/sup.txt" -c 0',
-                ["this path has spaces/sup.txt", "-c", "0"],
-            ),
-            ('"first arg second_arg', ['"first', "arg", "second_arg"]),
-            (
-                "'/some/path/to/an_excel_wkbk.xlsx' -c 1 -s \"XSIT Progress\"",
-                [
-                    "'/some/path/to/an_excel_wkbk.xlsx'",
-                    "-c",
-                    "1",
-                    "-s",
-                    "XSIT Progress",
-                ],
-            ),
-        ]
-        for test_case in testme_to_expected:
-            self.assertListEqual(
-                _mut.split_argstr_respecting_quotes(argstr=test_case[0]),
-                test_case[-1],
-            )
